@@ -1,58 +1,69 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+import { Navbar, Wrapper, Footer } from './sections';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { Background } from './components';
+import './assets/scss/index.scss';
+import { About, Compare, MyList, Pokemon, Search } from './pages';
+import { ToastContainer, ToastOptions, toast } from 'react-toastify';
+import { useAppSelector } from './app/hooks';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import 'react-toastify/dist/ReactToastify.css';
+import pokeballIcon from './assets/pokeball-icon.png';
 
-function App() {
+const App = () => {
+
+  // access to the local storage for 'app'.toast
+  const {toasts} = useAppSelector(({app}) => app);
+  // dispatch
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    //check if there is toasts
+    if(toasts.length){
+      // render every toast in state array
+      toasts.forEach((message: string) => toast(message));
+    }
+   
+  }, [toasts, dispatch])
+  
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
+    <div className='main-container'>
+      <Background />
+      <BrowserRouter>
+        <div className="app">
+          {/* Navbar */}
+          <Navbar />
+          {/* Routes */}
+          <Routes>
+            <Route path='/search' element={<Search />} />
+            <Route path='/list' element={<MyList />} />
+            <Route path='/about' element={<About />} />
+            <Route path='/compare' element={<Compare />} />
+            <Route path='/pokemon/:id' element={<Pokemon />} />
+            {/* default route */}
+            <Route path='*' element={<Navigate to="/pokemon/1"/>}  />
+          </Routes>
+          {/* Wrapper */}
+          {/* <Wrapper /> */}
+          {/* Footer */}
+          <Footer />
+        </div>
+      </BrowserRouter>
+      <ToastContainer 
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

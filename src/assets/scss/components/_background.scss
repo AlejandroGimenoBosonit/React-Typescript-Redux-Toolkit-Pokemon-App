@@ -1,0 +1,26 @@
+.background {
+    //Overlapping elements with a larger z-index cover those with a smaller one.
+    z-index: -1;
+    // position of element in the document: absolute -> 
+    /*
+    The element is removed from the normal document flow, and no space is created for the element in the page layout. It is positioned relative to its closest positioned ancestor, if any; otherwise, it is placed relative to the initial containing block. 
+    */
+    position: absolute;
+    // viewport height
+    max-height: 100vh;
+
+    // grid system
+    display: grid;
+    // template for thre column
+    // fr - The fr attribute defines the radius of the focal point for the radial gradient.
+    grid-template-columns: 1fr 1fr 1fr;
+    //gap space between columns
+    gap: 2rem;
+    
+
+    img{
+        max-inline-size: 100%;
+        block-size: auto;
+        height: 20rem; //Font size of the root element.
+    }
+}

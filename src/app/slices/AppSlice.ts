@@ -2,7 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 import { AppTypeInitialState } from "../../utils/types/app/Types.types";
 
 const initialState: AppTypeInitialState = {
-    toasts: []
+    toasts: [],
+    userInfo: undefined
 };
 
 export const AppSlice = createSlice({
@@ -19,7 +20,8 @@ export const AppSlice = createSlice({
         },
         clearToasts: (state, action) => {
             state.toasts = [];
-        }
+        },
+        setUserStatus: 
     },
 });
 

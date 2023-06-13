@@ -5,7 +5,9 @@ type Props = {}
 
 const MyList = (props: Props) => {
   return (
-    <div>MyList</div>
+    <div className="list">
+      
+    </div>
   )
 }
 

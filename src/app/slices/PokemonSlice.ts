@@ -34,7 +34,7 @@ export const PokemonSlice = createSlice({
                 state.compareQueue.unshift(action.payload);
             }
         },
-        removeForCompare: (state, action) => {
+        removeFromCompare: (state, action) => {
             // check every pokemon in compareQueue to find the pokemon that we selected and store the index
             const index = state.compareQueue.findIndex(
                 (pokemon: generatedPokemonType) => pokemon.id === action.payload.id
@@ -42,7 +42,9 @@ export const PokemonSlice = createSlice({
 
             // make a copy of the actual state, then removes the pokemon with the index
             // later will assig the new state value to the current local state
-            state.compareQueue = [...state.compareQueue].splice(index, 1);
+            const queue = [...state.compareQueue];
+            queue.splice(index, 1);
+            state.compareQueue = queue;
         }
     },
     extraReducers:(builder) => {
@@ -58,4 +60,4 @@ export const PokemonSlice = createSlice({
     }
 });
 
-export const { addToCompare, removeForCompare } = PokemonSlice.actions;
+export const { addToCompare, removeFromCompare } = PokemonSlice.actions;
